@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aguila o sol</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background: #559ab9;
+}
+
+.main {
+  margin: auto;
+  text-align: center;
+}
+
+h2 {
+  margin: 2rem 0 1rem 0;
+  font-size: 45px;
+}
+
+.selected {
+  display: flex;
+  justify-content: center;
+}
+
+.selected p {
+  margin: 0 1rem;
+  font-size: 20px;
+}
+
+.result {
+  width: 230px;
+  height: 300px;
+  margin: 1rem auto;
+}
+
+#image {
+  background: url(imagenes/cara.png);
+  width: 230px;
+  height: 240px;
+}
+
+.animate {
+  background: url(imagenes/cara.png);
+  width: 230px;
+  height: 230px;
+}
+
+h4 {
+  font-size: 28px;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin: 0 1rem;
+}
+
+button:hover {
+  background: #000;
+  color: #fff;
+}
+
+@media screen and (max-height: 900px) {
+  h2 {
+    margin: 1rem 0 1rem 0;
+    font-size: 35px;
+  }
+
+  img {
+    width: 230px;
+    height: 230px;
+    margin: 3rem;
+  }
+}
+  </style>
+</head>
+
+<body>
+  <main class="main">
+    <header class="header">
+      <h2>Aguila o sol</h2>
+    </header>
+    <section>
+      <div class="selected">
+      </div>
+      <div class="result">
+        <div class="winner"></div>
+        <div id="image"></div>
+      </div>
+      <div class="button-section">
+        <h4>Selecciona</h4>
+        <button class="cara-button">cara</button>
+        <button class="cruz-button">cruz</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    var img = document.querySelector('#image');
+    var winner = document.querySelector('.winner');
+    var buttons = document.querySelectorAll('button');
+
+    function displayImageRandom(random) {
+    if (random === 1) {
+      img.style.backgroundImage = "url('imagenes/cara.png')";
+      } else {
+      img.style.backgroundImage = "url('imagenes/cruz.png')";
+      }
+    }
+
+    buttons.forEach(function (button) {
+    button.addEventListener('click', function (e) {
+    const random = Math.round(Math.random());
+    const seleccion = e.target.innerText;
+    let selec;
+
+    if (seleccion === 'cara') {
+      selec = 1;
+      } else {
+      selec = 0;
+      }
+
+    if (selec === random) {
+      winner.innerHTML = `<h3>Ganaste!! :3</h3>`;
+      } else {
+      winner.innerHTML = `<h3>Perdiste!! :(</h3>`;
+      }
+    img.classList.add('animate');
+
+    displayImageRandom(random);
+
+    displaySelections(seleccion, computerSelection);
+
+    setTimeout(() => {
+      scoreCalculation(random, selec, computerPick);
+
+      img.classList.remove('animate');
+      }, 3000);
+   });
+  });
+  </script>
+</body>
+
+</html>
